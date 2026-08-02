@@ -1,0 +1,16 @@
+
+> storefront@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 530ms
+
+○ Compiling / ...
+ GET / 200 in 4.1s (next.js: 3.4s, application-code: 756ms)
+ GET / 200 in 154ms (next.js: 8ms, application-code: 146ms)
+ GET / 200 in 186ms (next.js: 10ms, application-code: 176ms)
+ GET / 200 in 82ms (next.js: 6ms, application-code: 76ms)
+ GET / 200 in 78ms (next.js: 4ms, application-code: 73ms)
+ GET / 200 in 133ms (next.js: 5ms, application-code: 128ms)
