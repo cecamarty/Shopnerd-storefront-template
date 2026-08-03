@@ -6,10 +6,7 @@ import { useCartStore } from '@/store/useCartStore';
 import { store } from '@/data/store';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Trash2, ShoppingBag } from 'lucide-react';
-import { Button } from './ui/Button';
-import { Price } from './ui/Price';
-import { QuantitySelector } from './ui/QuantitySelector';
-import { EmptyState } from './ui/EmptyState';
+import { Button, Price, QuantitySelector, EmptyState } from '@/components/ui';
 
 export const CartSheet = () => {
   const { isCartOpen, closeCart } = useUIStore();
@@ -59,11 +56,24 @@ export const CartSheet = () => {
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-white rounded-t-3xl h-[85vh] md:h-[90vh] md:w-[500px] md:left-1/2 md:-translate-x-1/2 overflow-hidden shadow-2xl"
+            transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(_, info) => {
+              if (info.offset.y > 100 || info.velocity.y > 500) {
+                closeCart();
+              }
+            }}
+            className="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-white rounded-t-3xl h-[85vh] md:h-[90vh] md:w-[500px] md:left-1/2 md:-translate-x-1/2 overflow-hidden shadow-[0_-10px_40px_rgba(0,0,0,0.1)] will-change-transform"
           >
+            {/* Handle for drag */}
+            <div className="flex justify-center p-3 shrink-0 cursor-grab active:cursor-grabbing touch-none">
+              <div className="h-1.5 w-12 rounded-full bg-gray-300" />
+            </div>
+
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-100 shrink-0">
+            <div className="flex items-center justify-between px-4 pb-4 border-b border-gray-100 shrink-0">
               <h2 className="text-xl font-semibold text-gray-900">Your Cart</h2>
               <button
                 onClick={closeCart}

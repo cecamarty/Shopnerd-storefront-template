@@ -3,8 +3,8 @@
 import React, { useMemo } from 'react';
 import { products } from '@/data/products';
 import { useUIStore } from '@/store/useUIStore';
-import { ProductCard } from './ProductCard';
-import { EmptyState } from './ui/EmptyState';
+import { ProductCard } from '@/components/ProductCard';
+import { EmptyState } from '@/components/ui';
 import { PackageX, SearchX } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -42,23 +42,38 @@ export const ProductGrid = () => {
   }
 
   return (
-    <div className="px-4 py-6">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
-        <AnimatePresence>
+    <div className="px-4 py-6 grid grid-cols-1">
+      <motion.div
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 col-span-full"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.05 }
+          }
+        }}
+      >
+        <AnimatePresence mode="popLayout">
           {filteredProducts.map((product) => (
             <motion.div
               key={product.id}
               layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.2 }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+              transition={{ type: "spring", stiffness: 400, damping: 30 }}
             >
               <ProductCard product={product} />
             </motion.div>
           ))}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </div>
   );
 };

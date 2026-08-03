@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { Product } from '@/data/products';
-import { Price } from './ui/Price';
-import { Badge } from './ui/Badge';
+import { Price, Badge } from '@/components/ui';
 import { useUIStore } from '@/store/useUIStore';
 import { motion } from 'framer-motion';
 

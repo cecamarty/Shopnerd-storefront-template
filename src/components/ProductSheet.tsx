@@ -6,10 +6,7 @@ import { useCartStore } from '@/store/useCartStore';
 import { products } from '@/data/products';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from './ui/Button';
-import { Price } from './ui/Price';
-import { Badge } from './ui/Badge';
-import { QuantitySelector } from './ui/QuantitySelector';
+import { Button, Price, Badge, QuantitySelector } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
 export const ProductSheet = () => {
@@ -74,11 +71,19 @@ export const ProductSheet = () => {
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-white rounded-t-3xl max-h-[90vh] md:max-h-[85vh] md:w-[500px] md:left-1/2 md:-translate-x-1/2 overflow-hidden shadow-2xl"
+            transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(_, info) => {
+              if (info.offset.y > 100 || info.velocity.y > 500) {
+                closeProduct();
+              }
+            }}
+            className="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-white rounded-t-3xl max-h-[90vh] md:max-h-[85vh] md:w-[500px] md:left-1/2 md:-translate-x-1/2 overflow-hidden shadow-[0_-10px_40px_rgba(0,0,0,0.1)] will-change-transform"
           >
-            {/* Handle for drag (visual only for now) */}
-            <div className="flex justify-center p-3 shrink-0">
+            {/* Handle for drag */}
+            <div className="flex justify-center p-3 shrink-0 cursor-grab active:cursor-grabbing touch-none">
               <div className="h-1.5 w-12 rounded-full bg-gray-300" />
             </div>
 
