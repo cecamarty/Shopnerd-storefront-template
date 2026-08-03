@@ -6,19 +6,26 @@ import { ProductGrid } from "@/components/ProductGrid";
 import { ProductSheet } from "@/components/ProductSheet";
 import { CartSheet } from "@/components/CartSheet";
 import { FloatingCart } from "@/components/FloatingCart";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-zinc-50 pb-32">
-      <div className="max-w-3xl mx-auto bg-white min-h-screen shadow-sm relative overflow-hidden">
+    <main className="min-h-screen bg-zinc-50">
+      <div className="max-w-3xl mx-auto bg-white min-h-screen shadow-sm relative">
         <Header />
 
-        <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-xl border-b border-zinc-100/50 pb-2">
+        <div className="sticky top-0 z-30">
           <SearchBar />
-          <CategoryChips />
+          <div className="bg-white/90 backdrop-blur-xl">
+             <CategoryChips />
+          </div>
         </div>
 
-        <ProductGrid />
+        <div className="pb-16">
+          <ProductGrid />
+        </div>
+
+        <Footer />
 
         <ProductSheet />
         <CartSheet />

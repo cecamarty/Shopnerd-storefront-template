@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Premium Mobile-First Storefront
+
+A single-scroll, app-like storefront built with Next.js (App Router), Tailwind CSS, and Framer Motion.
+
+This prototype is designed to provide a calm, premium, and effortless shopping experience optimized for customers arriving from social media links. It heavily utilizes overlays (bottom sheets) to prevent page navigation and preserve context.
+
+## Key Features
+- **Single-Scroll UX:** Everything happens on one page. No traditional routing.
+- **App-Like Overlays:** Product details and the shopping cart open in fluid, drag-to-dismiss bottom sheets.
+- **Scroll-Linked Interactions:** Collapsing header, smoothly pinning search bar, and a smart floating cart.
+- **Mock Data Architecture:** Built to easily migrate to a real backend (see `docs/MIGRATION.md`).
+- **WhatsApp Checkout:** Generates a pre-filled order message as a mock checkout flow.
+
+## Documentation
+Please refer to the `docs/` directory for detailed information on the architecture and integration plans:
+- `docs/ARCHITECTURE.md` - Overview of the codebase structure and data flow.
+- `docs/DESIGN_DECISIONS.md` - Context on why specific technical and UX choices were made.
+- `docs/MIGRATION.md` - A guide for migrating this prototype into a production platform.
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. Best viewed on a mobile viewport.

@@ -33,28 +33,29 @@ export function CartSheet() {
   return (
     <Overlay isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} position="bottom">
       <div className="h-full flex flex-col bg-white">
-        <div className="flex items-center justify-between p-6 border-b border-zinc-100 sticky top-0 bg-white/80 backdrop-blur-md z-10">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-100/50 sticky top-0 bg-white/90 backdrop-blur-xl z-30">
           <h2 className="text-xl font-semibold text-zinc-900 flex items-center gap-2">
             <ShoppingBag className="h-5 w-5" />
             Your Cart
           </h2>
           <button
             onClick={() => setIsCartOpen(false)}
-            className="p-2 rounded-full hover:bg-zinc-100 transition-colors"
+            className="p-2.5 rounded-full bg-zinc-100/80 hover:bg-zinc-200 text-zinc-600 transition-colors"
+            aria-label="Close cart"
           >
-            <X className="h-5 w-5 text-zinc-500" />
+            <X className="h-5 w-5" />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-6 pb-40">
           {cartItems.length === 0 ? (
-            <div className="h-full flex items-center justify-center">
+            <div className="h-full flex items-center justify-center -mt-10">
               <EmptyState
-                icon={<ShoppingBag className="h-8 w-8 text-zinc-400" />}
+                icon={<ShoppingBag className="h-10 w-10 text-zinc-400" />}
                 title="Your cart is empty"
                 description="Looks like you haven't added anything yet."
                 action={
-                  <Button variant="outline" onClick={() => setIsCartOpen(false)} className="mt-4 rounded-full">
+                  <Button variant="outline" onClick={() => setIsCartOpen(false)} className="mt-6 rounded-full font-medium px-8 h-12">
                     Continue Shopping
                   </Button>
                 }
@@ -63,8 +64,8 @@ export function CartSheet() {
           ) : (
             <div className="flex flex-col gap-6">
               {cartItems.map((item) => (
-                <div key={item.product.id} className="flex gap-4">
-                  <div className="relative h-24 w-24 rounded-xl overflow-hidden bg-zinc-100 flex-shrink-0">
+                <div key={item.product.id} className="flex gap-4 group">
+                  <div className="relative h-24 w-24 rounded-2xl overflow-hidden bg-zinc-100 flex-shrink-0 border border-zinc-100/50">
                     <Image
                       src={item.product.images[0]}
                       alt={item.product.name}
@@ -73,30 +74,33 @@ export function CartSheet() {
                     />
                   </div>
                   <div className="flex-1 flex flex-col">
-                    <div className="flex justify-between items-start gap-2">
-                      <h3 className="font-medium text-zinc-900 line-clamp-2">{item.product.name}</h3>
+                    <div className="flex justify-between items-start gap-3">
+                      <h3 className="font-medium text-zinc-900 line-clamp-2 leading-tight">{item.product.name}</h3>
                       <button
                         onClick={() => removeFromCart(item.product.id)}
-                        className="text-zinc-400 hover:text-red-500 transition-colors p-1"
+                        className="text-zinc-400 hover:text-red-500 transition-colors p-1.5 -mr-1.5"
+                        aria-label={`Remove ${item.product.name} from cart`}
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
-                    <Price price={item.product.price} className="mt-1 mb-auto text-sm" />
+                    <Price price={item.product.price} className="mt-1.5 mb-auto text-sm" />
 
-                    <div className="flex items-center gap-3 mt-3 w-fit bg-zinc-50 rounded-full px-1 border border-zinc-100">
+                    <div className="flex items-center gap-3 mt-3 w-fit bg-zinc-50 rounded-full px-1.5 border border-zinc-100/80">
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                        className="p-1.5 text-zinc-500 hover:text-zinc-900"
+                        className="p-1.5 text-zinc-500 hover:text-zinc-900 transition-colors"
+                        aria-label="Decrease quantity"
                       >
-                        <Minus className="h-3 w-3" />
+                        <Minus className="h-3.5 w-3.5" />
                       </button>
-                      <span className="w-4 text-center text-sm font-medium text-zinc-900">{item.quantity}</span>
+                      <span className="w-5 text-center text-sm font-semibold text-zinc-900">{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                        className="p-1.5 text-zinc-500 hover:text-zinc-900"
+                        className="p-1.5 text-zinc-500 hover:text-zinc-900 transition-colors"
+                        aria-label="Increase quantity"
                       >
-                        <Plus className="h-3 w-3" />
+                        <Plus className="h-3.5 w-3.5" />
                       </button>
                     </div>
                   </div>
@@ -107,23 +111,26 @@ export function CartSheet() {
         </div>
 
         {cartItems.length > 0 && (
-          <div className="border-t border-zinc-100 p-6 bg-white sticky bottom-0">
+          <div className="fixed bottom-0 left-0 right-0 border-t border-zinc-100/80 p-6 bg-white/90 backdrop-blur-xl z-20 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
             <div className="space-y-3 mb-6">
-               <div className="flex justify-between text-sm text-zinc-500">
+               <div className="flex justify-between text-sm text-zinc-500 font-medium">
                  <span>Subtotal</span>
-                 <span>{storeInfo.currencySymbol}{cartTotalPrice.toFixed(2)}</span>
+                 <span className="text-zinc-900">{storeInfo.currencySymbol}{cartTotalPrice.toFixed(2)}</span>
                </div>
-               <div className="flex justify-between text-sm text-zinc-500">
+               <div className="flex justify-between text-sm text-zinc-500 font-medium">
                  <span>Shipping</span>
                  <span>Calculated at checkout</span>
                </div>
-               <div className="flex justify-between text-base font-medium text-zinc-900 pt-3 border-t border-zinc-100">
+               <div className="flex justify-between text-lg font-semibold text-zinc-900 pt-4 border-t border-zinc-100/80">
                  <span>Total</span>
                  <span>{storeInfo.currencySymbol}{cartTotalPrice.toFixed(2)}</span>
                </div>
             </div>
 
-            <Button className="w-full h-14 rounded-full text-lg shadow-lg shadow-zinc-200" onClick={handleCheckout}>
+            <Button
+              className="w-full h-14 rounded-full text-lg font-semibold shadow-[0_4px_14px_0_rgb(0,0,0,0.1)] active:scale-[0.98] transition-transform"
+              onClick={handleCheckout}
+            >
               Checkout via WhatsApp
             </Button>
           </div>

@@ -52,3 +52,23 @@ Warning: React does not recognize the `asChild` prop on a DOM element. If you in
  ⨯ upstream image response failed for https://images.unsplash.com/photo-1597484661643-2f5fef640df1?q=80&w=600&auto=format&fit=crop 404
  ✓ Compiled in 843ms (1431 modules)
  ✓ Compiled in 760ms (1431 modules)
+ ✓ Compiled in 4.3s (1434 modules)
+ ✓ Compiled in 2.5s (1421 modules)
+ ✓ Compiled in 1065ms (1421 modules)
+ ✓ Compiled in 367ms (1421 modules)
+ ✓ Compiled in 432ms (1421 modules)
+ ✓ Compiled in 340ms (1421 modules)
+ ✓ Compiled in 314ms (1421 modules)
+ ✓ Compiled in 637ms (1421 modules)
+ ✓ Compiled in 1398ms (1421 modules)
+ ✓ Compiled in 314ms (1421 modules)
+ ✓ Compiled in 415ms (700 modules)
+ ✓ Compiled in 830ms (1429 modules)
+ ✓ Compiled in 154ms (700 modules)
+ ✓ Compiled in 691ms (1429 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 790ms (1418 modules)
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1905ms (1641 modules)
+ GET / 404 in 2872ms
+[?25h

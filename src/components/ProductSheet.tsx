@@ -30,10 +30,11 @@ export function ProductSheet() {
 
   return (
     <Overlay isOpen={!!selectedProduct} onClose={handleClose} position="bottom">
-      <div className="relative pb-24 h-full flex flex-col">
+      <div className="relative pb-28 h-full flex flex-col">
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 z-10 p-2 bg-white/80 backdrop-blur-md rounded-full shadow-sm text-zinc-500 hover:text-zinc-900"
+          className="absolute top-4 right-4 z-30 p-2.5 bg-white/90 backdrop-blur-md rounded-full shadow-sm text-zinc-500 hover:text-zinc-900 transition-colors"
+          aria-label="Close product details"
         >
           <X className="h-5 w-5" />
         </button>
@@ -49,12 +50,12 @@ export function ProductSheet() {
         </div>
 
         <div className="p-6 flex flex-col flex-1">
-          <div className="flex gap-2 mb-3">
+          <div className="flex gap-2 mb-4">
              {selectedProduct.isNew && <Badge>New Arrival</Badge>}
              {selectedProduct.isSale && <Badge variant="destructive">On Sale</Badge>}
           </div>
 
-          <h2 className="text-2xl font-semibold text-zinc-900 mb-2">
+          <h2 className="text-2xl font-semibold text-zinc-900 mb-2 leading-tight">
             {selectedProduct.name}
           </h2>
 
@@ -64,32 +65,34 @@ export function ProductSheet() {
             className="text-lg mb-6"
           />
 
-          <div className="prose prose-sm text-zinc-500 mb-8 flex-1">
+          <div className="prose prose-sm text-zinc-600 mb-8 flex-1 leading-relaxed">
             <p>{selectedProduct.description}</p>
           </div>
-
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-zinc-100 flex gap-4 items-center">
-             <div className="flex items-center gap-3 bg-zinc-100 rounded-full px-2 h-12">
+        {/* Sticky bottom bar */}
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-xl border-t border-zinc-100/80 flex gap-4 items-center pb-[max(1rem,env(safe-area-inset-bottom))]">
+             <div className="flex items-center gap-3 bg-zinc-100/80 rounded-full px-2 h-14">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="p-2 text-zinc-500 hover:text-zinc-900 disabled:opacity-50"
+                className="p-2.5 text-zinc-500 hover:text-zinc-900 disabled:opacity-50 transition-colors"
                 disabled={quantity <= 1}
+                aria-label="Decrease quantity"
               >
                 <Minus className="h-4 w-4" />
               </button>
-              <span className="w-4 text-center font-medium text-zinc-900">{quantity}</span>
+              <span className="w-5 text-center font-semibold text-zinc-900">{quantity}</span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
-                className="p-2 text-zinc-500 hover:text-zinc-900"
+                className="p-2.5 text-zinc-500 hover:text-zinc-900 transition-colors"
+                aria-label="Increase quantity"
               >
                 <Plus className="h-4 w-4" />
               </button>
             </div>
 
             <Button
-              className="flex-1 h-12 rounded-full text-base"
+              className="flex-1 h-14 rounded-full text-base font-semibold shadow-[0_4px_14px_0_rgb(0,0,0,0.1)] active:scale-[0.98] transition-transform"
               onClick={handleAddToCart}
               disabled={!selectedProduct.inStock}
             >

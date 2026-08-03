@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
+import { motion } from "framer-motion";
 import { products } from "@/data/products";
 import { useStore } from "@/store/StoreContext";
 import { ProductCard } from "./ProductCard";
@@ -20,6 +21,16 @@ export function ProductGrid() {
     });
   }, [searchQuery, selectedCategory]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+      }
+    }
+  };
+
   if (filteredProducts.length === 0) {
     return (
       <div className="px-6 py-12">
@@ -33,12 +44,18 @@ export function ProductGrid() {
   }
 
   return (
-    <div className="px-6 py-6">
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+    <div className="px-6 pt-4 pb-12">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        key={selectedCategory + searchQuery} // Re-trigger animation on filter change
+        className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+      >
         {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
