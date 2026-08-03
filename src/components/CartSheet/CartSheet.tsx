@@ -6,8 +6,8 @@ import { storeInfo } from '../../data/store';
 import { settings } from '../../theme/settings';
 import { QuantitySelector } from '../QuantitySelector/QuantitySelector';
 import { Price } from '../Price/Price';
-import { Button } from '../Buttons/Button';
-import { Icons } from '../Icons/Icons';
+import { Button } from '../ui/Button';
+import { Icons } from '../ui/Icons';
 import { EmptyState } from '../EmptyState/EmptyState';
 
 export function CartSheet() {
@@ -58,10 +58,18 @@ export function CartSheet() {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(_, info) => {
+              if (info.offset.y > 150 || info.velocity.y > 500) {
+                setCartOpen(false);
+              }
+            }}
             className="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-white rounded-t-3xl shadow-2xl md:inset-x-auto md:right-0 md:top-0 md:bottom-0 md:w-[480px] md:rounded-l-3xl md:rounded-tr-none max-h-[90vh] md:max-h-screen"
           >
             {/* Mobile handle */}
-            <div className="flex w-full items-center justify-center pt-3 pb-2 md:hidden">
+            <div className="flex w-full items-center justify-center pt-3 pb-2 md:hidden cursor-grab active:cursor-grabbing">
               <div className="h-1.5 w-12 rounded-full bg-gray-300" />
             </div>
 

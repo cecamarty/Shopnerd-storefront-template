@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icons } from '../Icons/Icons';
+import { Icons } from '../ui/Icons';
 
 interface SearchBarProps {
   value: string;

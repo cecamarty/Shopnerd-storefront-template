@@ -1,14 +1,4 @@
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  originalPrice?: number;
-  images: string[];
-  categoryId: string;
-  inStock: boolean;
-  isSale?: boolean;
-}
+import { Product } from '../types';
 
 export const mockProducts: Product[] = [
   {

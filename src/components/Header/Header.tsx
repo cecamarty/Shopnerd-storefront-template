@@ -1,15 +1,30 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { storeInfo } from '../../data/store';
 import { theme } from '../../data/theme';
-import { Icons } from '../Icons/Icons';
-import { Button } from '../Buttons/Button';
+import { Icons } from '../ui/Icons';
+import { Button } from '../ui/Button';
 
 export function Header() {
+  const { scrollY } = useScroll();
+
+  // Animations based on scroll position
+  const coverHeight = useTransform(scrollY, [0, 150], [256, 120]);
+  const coverOpacity = useTransform(scrollY, [0, 150], [1, 0.4]);
+
+  const logoScale = useTransform(scrollY, [0, 150], [1, 0.6]);
+  const logoY = useTransform(scrollY, [0, 150], [0, -20]);
+
   return (
     <header className="relative flex flex-col bg-white">
       {/* Cover Image */}
-      <div className="relative h-48 w-full md:h-64 overflow-hidden">
+      <motion.div
+        style={{ height: coverHeight, opacity: coverOpacity }}
+        className="relative w-full overflow-hidden origin-top"
+      >
         <Image
           src={theme.branding.coverImageUrl}
           alt="Store Cover"
@@ -18,12 +33,15 @@ export function Header() {
           priority
         />
         <div className="absolute inset-0 bg-black/10" />
-      </div>
+      </motion.div>
 
       {/* Profile Info Section */}
       <div className="relative px-4 pb-6 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
         {/* Logo */}
-        <div className="relative -mt-12 mb-4">
+        <motion.div
+          style={{ scale: logoScale, y: logoY }}
+          className="relative -mt-12 mb-4 origin-left z-10"
+        >
           <div className="relative h-24 w-24 rounded-full border-4 border-white bg-white shadow-sm overflow-hidden">
             <Image
               src={theme.branding.logoUrl}
@@ -32,7 +50,7 @@ export function Header() {
               className="object-cover"
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* Store Details */}
         <div className="flex flex-col gap-1 mb-4">

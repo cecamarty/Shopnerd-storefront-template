@@ -1,22 +1,33 @@
 import React from 'react';
 import Image from 'next/image';
-import { Product } from '../../data/products';
+import { Product } from '../../types';
 import { Price } from '../Price/Price';
-import { Badge } from '../Badge/Badge';
-import { cn } from '../Buttons/Button';
+import { Badge } from '../ui/Badge';
+import { cn } from '../ui/Button';
+import { motion } from 'framer-motion';
 
 interface ProductCardProps {
   product: Product;
   onClick: (product: Product) => void;
 }
 
+import { Variants } from 'framer-motion';
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } },
+};
+
 export function ProductCard({ product, onClick }: ProductCardProps) {
   return (
-    <div
+    <motion.div
+      variants={itemVariants}
       className="group cursor-pointer flex flex-col gap-3"
       onClick={() => onClick(product)}
+      whileHover={{ y: -4 }}
+      whileTap={{ scale: 0.98 }}
     >
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-gray-100">
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-gray-100 shadow-sm transition-shadow group-hover:shadow-md">
         <Image
           src={product.images[0]}
           alt={product.name}
@@ -40,11 +51,11 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       </div>
 
       <div className="flex flex-col gap-1">
-        <h3 className="text-sm font-medium text-gray-900 line-clamp-1 group-hover:underline decoration-1 underline-offset-4">
+        <h3 className="text-sm font-medium text-gray-900 line-clamp-1 group-hover:text-gray-600 transition-colors">
           {product.name}
         </h3>
         <Price amount={product.price} originalAmount={product.originalPrice} />
       </div>
-    </div>
+    </motion.div>
   );
 }

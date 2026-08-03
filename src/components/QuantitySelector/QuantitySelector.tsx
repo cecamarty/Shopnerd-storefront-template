@@ -1,6 +1,6 @@
 import React from 'react';
-import { Icons } from '../Icons/Icons';
-import { cn } from '../Buttons/Button';
+import { Icons } from '../ui/Icons';
+import { cn } from '../ui/Button';
 
 interface QuantitySelectorProps {
   quantity: number;

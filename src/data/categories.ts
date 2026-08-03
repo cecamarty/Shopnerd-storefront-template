@@ -1,7 +1,4 @@
-export interface Category {
-  id: string;
-  name: string;
-}
+import { Category } from '../types';
 
 export const mockCategories: Category[] = [
   { id: "all", name: "All Products" },

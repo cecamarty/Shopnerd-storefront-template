@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import { Category } from '../../data/categories';
-import { cn } from '../Buttons/Button';
+import { Category } from '../../types';
+import { cn } from '../ui/Button';
 
 interface CategoryChipsProps {
   categories: Category[];
@@ -22,10 +22,10 @@ export function CategoryChips({ categories, selectedCategoryId, onSelectCategory
   }, [selectedCategoryId]);
 
   return (
-    <div className="w-full overflow-hidden bg-white sticky top-0 z-10 pb-4 pt-2">
+    <div className="w-full overflow-hidden bg-transparent z-10 pb-4 pt-2">
       <div
         ref={scrollContainerRef}
-        className="flex overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 gap-2 snap-x max-w-4xl mx-auto"
+        className="flex overflow-x-auto hide-scrollbar px-4 sm:px-6 lg:px-8 gap-2 snap-x max-w-4xl mx-auto py-1"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {/* Helper style injected to hide scrollbar on webkit */}
